@@ -1,94 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>California Vacation 2025</title>
+  <title>California Vacation – Drag & Drop</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .day-content { display: none; }
-    .active .day-content { display: block; }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans">
   <header class="bg-blue-600 text-white p-6 shadow-md">
-    <h1 class="text-3xl font-bold text-center">California Vacation Itinerary</h1>
-    <p class="text-center text-sm mt-2">July 19 - July 27, 2025</p>
+    <h1 class="text-3xl font-bold text-center">California Vacation Itinerary Planner</h1>
+    <p class="text-center text-sm mt-2">Drag and drop activities between days — July 19 – July 27, 2025</p>
   </header>
 
-  <main class="max-w-4xl mx-auto px-4 py-8 space-y-8">
-    
-    <!-- Interactive Calendar -->
-    <section>
-      <h2 class="text-2xl font-semibold text-blue-800 mb-4">Interactive Calendar</h2>
-      <div id="calendar" class="space-y-4">
-        <!-- Day Template -->
-        <script>
-          const itinerary = [
-            { date: 'Saturday, July 19', activities: 'Arrive at LAX at 3pm. Get to the house around 5pm. Order pizza and groceries, settle in.' },
-            { date: 'Sunday, July 20', activities: 'Relax at the house, then go to Irvine around 3:30/4pm. Dinner with family. Play at the park after dinner.' },
-            { date: 'Monday, July 21', activities: 'Options: Full Beach Day or Dinner at Matt & Tracy\'s.' },
-            { date: 'Tuesday, July 22', activities: 'Options: Kayak Day or Dinner at Matt & Tracy\'s.' },
-            { date: 'Wednesday, July 23', activities: 'Options: Newport/Balboa Day or Dinner at Matt & Tracy\'s.' },
-            { date: 'Thursday, July 24', activities: 'Chill at house. Evening: Concert in the Park – bring dinner.' },
-            { date: 'Friday, July 25', activities: 'Options: Soak City, BBQ at house, or Dinner at Matt & Tracy\'s.' },
-            { date: 'Saturday, July 26', activities: 'Steve & Gail\'s Pool Party!' },
-            { date: 'Sunday, July 27', activities: 'Fly back to VA.' }
-          ];
+  <main class="max-w-7xl mx-auto px-4 py-8 space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="calendar">
 
-          window.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('calendar');
-            itinerary.forEach((day, index) => {
-              const dayDiv = document.createElement('div');
-              dayDiv.className = 'border rounded shadow cursor-pointer bg-white';
+      <!-- Template day card injected by JavaScript -->
 
-              const header = document.createElement('div');
-              header.className = 'bg-blue-100 px-4 py-2 font-semibold text-blue-900 flex justify-between items-center';
-              header.innerHTML = `<span>${day.date}</span><span>+</span>`;
-              header.addEventListener('click', () => {
-                dayDiv.classList.toggle('active');
-                header.querySelector('span:last-child').textContent = dayDiv.classList.contains('active') ? '-' : '+';
-              });
-
-              const content = document.createElement('div');
-              content.className = 'day-content px-4 py-2 text-gray-700';
-              content.textContent = day.activities;
-
-              dayDiv.appendChild(header);
-              dayDiv.appendChild(content);
-              container.appendChild(dayDiv);
-            });
-          });
-        </script>
-      </div>
-    </section>
-
-    <!-- Map Section -->
-    <section>
-      <h2 class="text-2xl font-semibold text-blue-800 mb-4">Trip Map</h2>
-      <p class="text-sm mb-2 text-gray-700">Here are some key locations for your trip:</p>
-
-      <div class="space-y-6">
-        <div>
-          <h3 class="text-lg font-semibold">LAX Airport</h3>
-          <iframe class="w-full h-64 border rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423286.27442544464!2d-118.74138274823563!3d34.0207304861931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2b0b4d8f8b387%3A0x861c4e1ecf30d8d7!2sLAX!5e0!3m2!1sen!2sus!4v1717529867872" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-
-        <div>
-          <h3 class="text-lg font-semibold">Huntington Harbor – Kayak Day</h3>
-          <iframe class="w-full h-64 border rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3303.423952291737!2d-118.0693494!3d33.7223276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dd27a1fc3f72cf%3A0xf0a8f37399ec8cb4!2sHuntington%20Harbor!5e0!3m2!1sen!2sus!4v1717529969832" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-
-        <div>
-          <h3 class="text-lg font-semibold">Newport Beach – Balboa Fun Zone</h3>
-          <iframe class="w-full h-64 border rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.7476230030895!2d-117.89882638479091!3d33.60235918073543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dd25bb8b6bdf67%3A0x1b9b62b9c7089389!2sBalboa%20Fun%20Zone!5e0!3m2!1sen!2sus!4v1717530075579" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-      </div>
-    </section>
+    </div>
   </main>
 
-  <footer class="bg-gray-100 text-center py-4 text-sm text-gray-500">
-    © 2025 California Vacation Itinerary. All rights reserved.
+  <footer class="bg-gray-100 text-center py-4 text-sm text-gray-500 mt-10">
+    © 2025 California Vacation | Drag & Drop Itinerary with Save & Add
   </footer>
+
+  <script>
+    const days = [
+      "Saturday, July 19",
+      "Sunday, July 20",
+      "Monday, July 21",
+      "Tuesday, July 22",
+      "Wednesday, July 23",
+      "Thursday, July 24",
+      "Friday, July 25",
+      "Saturday, July 26",
+      "Sunday, July 27"
+    ];
+
+    const defaultItems = {
+      "day-1": ["Arrive at LAX at 3pm", "Get to the house around 5pm", "Order pizza & groceries"],
+      "day-2": ["Relax at the house", "Dinner in Irvine with Grandma & Uncle Ken", "Play at park after dinner"],
+      "day-3": ["Full Beach Day: surf lessons, boogie boards, lunch", "Dinner at Matt & Tracy's"],
+      "day-4": ["Kayak at Huntington Harbor, rotate kids at bay", "Packed lunch", "Dinner at Matt & Tracy's"],
+      "day-5": ["Newport: Breakfast at Cappy’s", "Balboa Fun Zone, ferry, ice cream bars", "Visit Uncle Dave/Aunt Bev or Jeanie/Doug pool", "Dinner at Matt & Tracy's"],
+      "day-6": ["Chill at house during day", "Concert in the Park – bring dinner"],
+      "day-7": ["Optional: Knotts Soak City", "Chill/BBQ day at house with everyone", "Dinner at Matt & Tracy’s"],
+      "day-8": ["Steve & Gail's Pool Party"],
+      "day-9": ["Fly back to VA"]
+    };
+
+    const calendar = document.getElementById('calendar');
+
+    function saveAll() {
+      const data = {};
+      days.forEach((_, idx) => {
+        const ul = document.getElementById(`day-${idx + 1}`);
+        data[`day-${idx + 1}`] = Array.from(ul.children).map(li => li.textContent);
+      });
+      localStorage.setItem("itinerary", JSON.stringify(data));
+    }
+
+    function loadData() {
+      return JSON.parse(localStorage.getItem("itinerary")) || defaultItems;
+    }
+
+    function createDayCard(dayName, id, items) {
+      const container = document.createElement("div");
+      container.className = "bg-white rounded shadow p-4";
+
+      const title = document.createElement("h2");
+      title.className = "text-lg font-semibold mb-2 text-blue-700";
+      title.textContent = dayName;
+
+      const list = document.createElement("ul");
+      list.id = id;
+      list.className = "sortable space-y-2 min-h-[4rem] mb-4";
+
+      items.forEach(text => {
+        list.appendChild(createListItem(text));
+      });
+
+      const button = document.createElement("button");
+      button.className = "bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm";
+      button.textContent = "Add Activity";
+      button.onclick = () => {
+        const text = prompt("Enter new activity:");
+        if (text) {
+          const li = createListItem(text);
+          list.appendChild(li);
+          saveAll();
+        }
+      };
+
+      container.appendChild(title);
+      container.appendChild(list);
+      container.appendChild(button);
+      calendar.appendChild(container);
+    }
+
+    function createListItem(text) {
+      const li = document.createElement("li");
+      li.className = "bg-blue-100 p-2 rounded shadow cursor-move";
+      li.textContent = text;
+      return li;
+    }
+
+    // Initialize calendar
+    const storedItems = loadData();
+    days.forEach((dayName, idx) => {
+      const id = `day-${idx + 1}`;
+      const items = storedItems[id] || [];
+      createDayCard(dayName, id, items);
+    });
+
+    // Activate SortableJS and watch for changes
+    document.querySelectorAll(".sortable").forEach(el => {
+      new Sortable(el, {
+        group: "itinerary",
+        animation: 150,
+        ghostClass: "opacity-50",
+        onSort: saveAll,
+      });
+    });
+  </script>
 </body>
 </html>
