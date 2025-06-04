@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>California Vacation 2025</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .day-content { display: none; }
+    .active .day-content { display: block; }
+  </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans">
   <header class="bg-blue-600 text-white p-6 shadow-md">
@@ -12,44 +16,79 @@
     <p class="text-center text-sm mt-2">July 19 - July 27, 2025</p>
   </header>
 
-  <main class="max-w-4xl mx-auto px-4 py-8 space-y-6">
+  <main class="max-w-4xl mx-auto px-4 py-8 space-y-8">
+    
+    <!-- Interactive Calendar -->
     <section>
-      <h2 class="text-xl font-semibold text-blue-800 mb-2">Arrival & First Weekend</h2>
-      <ul class="list-disc ml-6 space-y-2">
-        <li><strong>Saturday, July 19:</strong> Arrive at LAX at 3pm, get to house around 5pm, order pizza & groceries, settle in.</li>
-        <li><strong>Sunday, July 20:</strong> Relax at the house, then head to Irvine around 3:30/4pm. Dinner with Grandma, Uncle Ken, and family. Park play after dinner.</li>
-      </ul>
+      <h2 class="text-2xl font-semibold text-blue-800 mb-4">Interactive Calendar</h2>
+      <div id="calendar" class="space-y-4">
+        <!-- Day Template -->
+        <script>
+          const itinerary = [
+            { date: 'Saturday, July 19', activities: 'Arrive at LAX at 3pm. Get to the house around 5pm. Order pizza and groceries, settle in.' },
+            { date: 'Sunday, July 20', activities: 'Relax at the house, then go to Irvine around 3:30/4pm. Dinner with family. Play at the park after dinner.' },
+            { date: 'Monday, July 21', activities: 'Options: Full Beach Day or Dinner at Matt & Tracy\'s.' },
+            { date: 'Tuesday, July 22', activities: 'Options: Kayak Day or Dinner at Matt & Tracy\'s.' },
+            { date: 'Wednesday, July 23', activities: 'Options: Newport/Balboa Day or Dinner at Matt & Tracy\'s.' },
+            { date: 'Thursday, July 24', activities: 'Chill at house. Evening: Concert in the Park – bring dinner.' },
+            { date: 'Friday, July 25', activities: 'Options: Soak City, BBQ at house, or Dinner at Matt & Tracy\'s.' },
+            { date: 'Saturday, July 26', activities: 'Steve & Gail\'s Pool Party!' },
+            { date: 'Sunday, July 27', activities: 'Fly back to VA.' }
+          ];
+
+          window.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('calendar');
+            itinerary.forEach((day, index) => {
+              const dayDiv = document.createElement('div');
+              dayDiv.className = 'border rounded shadow cursor-pointer bg-white';
+
+              const header = document.createElement('div');
+              header.className = 'bg-blue-100 px-4 py-2 font-semibold text-blue-900 flex justify-between items-center';
+              header.innerHTML = `<span>${day.date}</span><span>+</span>`;
+              header.addEventListener('click', () => {
+                dayDiv.classList.toggle('active');
+                header.querySelector('span:last-child').textContent = dayDiv.classList.contains('active') ? '-' : '+';
+              });
+
+              const content = document.createElement('div');
+              content.className = 'day-content px-4 py-2 text-gray-700';
+              content.textContent = day.activities;
+
+              dayDiv.appendChild(header);
+              dayDiv.appendChild(content);
+              container.appendChild(dayDiv);
+            });
+          });
+        </script>
+      </div>
     </section>
 
+    <!-- Map Section -->
     <section>
-      <h2 class="text-xl font-semibold text-blue-800 mb-2">Weekday Options</h2>
-      <p class="mb-4 text-sm text-gray-700 italic">Flexible: Monday (21st), Tuesday (22nd), Wednesday (23rd), Friday (25th)</p>
-      <ul class="list-disc ml-6 space-y-2">
-        <li><strong>Full Beach Day:</strong> Surf lessons with Matt, foam board rental, boogie boards, lunch, and chill.</li>
-        <li><strong>Bay and Kayak Day:</strong> Kayaking at Huntington Harbor, bay play, lunch, kid rotations.</li>
-        <li><strong>Newport/Balboa Day:</strong> Breakfast at Cappys, Fun Zone, ferry ride, visit Uncle Dave/Aunt Bev, pool at Jeanie & Doug’s.</li>
-        <li><strong>Knott’s Soak City:</strong> Water park fun (optional).</li>
-        <li><strong>House Chill & BBQ:</strong> Relax and invite everyone for a BBQ.</li>
-        <li><strong>Evening Visit:</strong> Dinner at Matt & Tracy's any open night.</li>
-      </ul>
-    </section>
+      <h2 class="text-2xl font-semibold text-blue-800 mb-4">Trip Map</h2>
+      <p class="text-sm mb-2 text-gray-700">Here are some key locations for your trip:</p>
 
-    <section>
-      <h2 class="text-xl font-semibold text-blue-800 mb-2">Thursday, July 24</h2>
-      <p>Spend the day at the house, then head to the <strong>Concert in the Park</strong> in the evening. Bring dinner and relax.</p>
-    </section>
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold">LAX Airport</h3>
+          <iframe class="w-full h-64 border rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423286.27442544464!2d-118.74138274823563!3d34.0207304861931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2b0b4d8f8b387%3A0x861c4e1ecf30d8d7!2sLAX!5e0!3m2!1sen!2sus!4v1717529867872" allowfullscreen="" loading="lazy"></iframe>
+        </div>
 
-    <section>
-      <h2 class="text-xl font-semibold text-blue-800 mb-2">Weekend Events</h2>
-      <ul class="list-disc ml-6 space-y-2">
-        <li><strong>Saturday, July 26:</strong> Pool Party at Steve and Gail’s.</li>
-        <li><strong>Sunday, July 27:</strong> Fly back to VA.</li>
-      </ul>
+        <div>
+          <h3 class="text-lg font-semibold">Huntington Harbor – Kayak Day</h3>
+          <iframe class="w-full h-64 border rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3303.423952291737!2d-118.0693494!3d33.7223276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dd27a1fc3f72cf%3A0xf0a8f37399ec8cb4!2sHuntington%20Harbor!5e0!3m2!1sen!2sus!4v1717529969832" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold">Newport Beach – Balboa Fun Zone</h3>
+          <iframe class="w-full h-64 border rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.7476230030895!2d-117.89882638479091!3d33.60235918073543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dd25bb8b6bdf67%3A0x1b9b62b9c7089389!2sBalboa%20Fun%20Zone!5e0!3m2!1sen!2sus!4v1717530075579" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="bg-gray-100 text-center py-4 text-sm text-gray-500">
-    © 2025 California Vacation
+    © 2025 California Vacation Itinerary. All rights reserved.
   </footer>
 </body>
 </html>
