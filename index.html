@@ -10,7 +10,7 @@
 <body class="bg-gray-50 text-gray-900 font-sans">
   <header class="bg-blue-600 text-white p-4 shadow-md">
     <h1 class="text-2xl md:text-3xl font-bold text-center">California Vacation Itinerary</h1>
-    <p class="text-center text-sm mt-1">Drag & drop your plan — July 19–27, 2025</p>
+    <p class="text-center text-sm mt-1">Drag, add, delete & plan – July 19–27, 2025</p>
   </header>
 
   <main class="max-w-7xl mx-auto px-4 py-6">
@@ -20,7 +20,7 @@
   </main>
 
   <footer class="bg-gray-100 text-center py-4 text-sm text-gray-500">
-    © 2025 California Vacation | Mobile-friendly Drag & Drop Planner
+    © 2025 California Vacation | Mobile Drag & Drop Planner
   </footer>
 
   <script>
@@ -54,7 +54,7 @@
       const data = {};
       days.forEach((_, idx) => {
         const ul = document.getElementById(`day-${idx + 1}`);
-        data[`day-${idx + 1}`] = Array.from(ul.children).map(li => li.textContent);
+        data[`day-${idx + 1}`] = Array.from(ul.children).map(li => li.querySelector('.text').textContent);
       });
       localStorage.setItem("itinerary", JSON.stringify(data));
     }
@@ -99,8 +99,22 @@
 
     function createListItem(text) {
       const li = document.createElement("li");
-      li.className = "bg-blue-100 p-2 rounded shadow cursor-move text-sm md:text-base";
-      li.textContent = text;
+      li.className = "bg-blue-100 p-2 rounded shadow cursor-move flex justify-between items-center gap-2";
+
+      const span = document.createElement("span");
+      span.className = "text-sm md:text-base text";
+      span.textContent = text;
+
+      const del = document.createElement("button");
+      del.className = "text-red-500 hover:text-red-700 text-sm font-bold ml-2";
+      del.innerHTML = "&times;";
+      del.onclick = () => {
+        li.remove();
+        saveAll();
+      };
+
+      li.appendChild(span);
+      li.appendChild(del);
       return li;
     }
 
@@ -112,13 +126,13 @@
       createDayCard(dayName, id, items);
     });
 
-    // Activate SortableJS and save on change
+    // Enable drag-and-drop with save
     document.querySelectorAll(".sortable").forEach(el => {
       new Sortable(el, {
         group: "itinerary",
         animation: 150,
         ghostClass: "opacity-50",
-        onSort: saveAll,
+        onSort: saveAll
       });
     });
   </script>
