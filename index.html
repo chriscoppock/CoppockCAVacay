@@ -8,21 +8,19 @@
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans">
-  <header class="bg-blue-600 text-white p-6 shadow-md">
-    <h1 class="text-3xl font-bold text-center">California Vacation Itinerary Planner</h1>
-    <p class="text-center text-sm mt-2">Drag and drop activities between days — July 19 – July 27, 2025</p>
+  <header class="bg-blue-600 text-white p-4 shadow-md">
+    <h1 class="text-2xl md:text-3xl font-bold text-center">California Vacation Itinerary</h1>
+    <p class="text-center text-sm mt-1">Drag & drop your plan — July 19–27, 2025</p>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 py-8 space-y-6">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="calendar">
-
-      <!-- Template day card injected by JavaScript -->
-
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    <div class="flex flex-wrap gap-6 justify-center" id="calendar">
+      <!-- Day cards injected here -->
     </div>
   </main>
 
-  <footer class="bg-gray-100 text-center py-4 text-sm text-gray-500 mt-10">
-    © 2025 California Vacation | Drag & Drop Itinerary with Save & Add
+  <footer class="bg-gray-100 text-center py-4 text-sm text-gray-500">
+    © 2025 California Vacation | Mobile-friendly Drag & Drop Planner
   </footer>
 
   <script>
@@ -67,22 +65,22 @@
 
     function createDayCard(dayName, id, items) {
       const container = document.createElement("div");
-      container.className = "bg-white rounded shadow p-4";
+      container.className = "w-full sm:w-[48%] lg:w-[30%] bg-white rounded shadow p-4 flex flex-col";
 
       const title = document.createElement("h2");
-      title.className = "text-lg font-semibold mb-2 text-blue-700";
+      title.className = "text-base md:text-lg font-semibold mb-2 text-blue-700";
       title.textContent = dayName;
 
       const list = document.createElement("ul");
       list.id = id;
-      list.className = "sortable space-y-2 min-h-[4rem] mb-4";
+      list.className = "sortable space-y-2 min-h-[4rem] mb-4 flex-1";
 
       items.forEach(text => {
         list.appendChild(createListItem(text));
       });
 
       const button = document.createElement("button");
-      button.className = "bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm";
+      button.className = "bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm self-start";
       button.textContent = "Add Activity";
       button.onclick = () => {
         const text = prompt("Enter new activity:");
@@ -101,7 +99,7 @@
 
     function createListItem(text) {
       const li = document.createElement("li");
-      li.className = "bg-blue-100 p-2 rounded shadow cursor-move";
+      li.className = "bg-blue-100 p-2 rounded shadow cursor-move text-sm md:text-base";
       li.textContent = text;
       return li;
     }
@@ -114,7 +112,7 @@
       createDayCard(dayName, id, items);
     });
 
-    // Activate SortableJS and watch for changes
+    // Activate SortableJS and save on change
     document.querySelectorAll(".sortable").forEach(el => {
       new Sortable(el, {
         group: "itinerary",
